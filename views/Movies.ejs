@@ -1,0 +1,46 @@
+<html lang="en">
+    <%- include('./partials/header.ejs') %>
+    <body>
+        <%- include('./partials/nav.ejs') %>
+        <div class="movies content">
+            <form action="/movies" method="POST">
+                <br><b>Movies: </b></br> <br>
+            <% if (theMovies.length > 0) { %>
+                <% theMovies.forEach(movie => { %>
+                    <b><%= movie.title %> <%= movie.release_year %></b><br> <%= movie.main_actors %><br> <%= movie.description %> <br> 
+                    <a href="/movies/<%=movie._id%>/edit?title=<%=movie.title%>&description=<%=movie.description%>&release_year=<%=movie.release_year%>&rating=<%=movie.rating%>&genre=<%=movie.rating%>&main_actors=<%=movie.main_actors%>&director=<%=movie.director%>">edit</a>
+                    <a href="/movies/<%=movie._id%>/delete?title=<%=movie.title%>&description=<%=movie.description%>&release_year=<%=movie.release_year%>&rating=<%=movie.rating%>&genre=<%=movie.rating%>&main_actors=<%=movie.main_actors%>&director=<%=movie.director%>">delete</a>
+                    <a href="/movies/<%=movie._id%>/replace?title=<%=movie.title%>&description=<%=movie.description%>&release_year=<%=movie.release_year%>&rating=<%=movie.rating%>&genre=<%=movie.rating%>&main_actors=<%=movie.main_actors%>&director=<%=movie.director%>">replace</a></br> <br>
+                    <% }) %>
+            <% } %>
+            </br><label id="addMovie">Add Movie:</label></br>
+            <label>Title:
+                <input type="text" id="title" name="title" value="<%= locals.title %>" required>
+            </label>
+            <label>Description:
+                <input type="text" id="description" name="description" value="<%= locals.description %>" required>
+            </label>
+            <label>Release Year:
+                <input type="text" id="release_year" name="release_year" value="<%= locals.release_year %>" required>
+            </label>
+            <label>Rating:
+                <input type="text" name="rating" id="rating" value="<%= locals.rating %>" required>
+            </label>
+            <br><br>
+            <label>Genre:
+                <input type="text" name="genre" id="genre" value="<%= locals.genre %>" required>
+            </label>
+            <label>Main Actors:
+                <input type="text" name="main_actors" id="main_actors" value="<%= locals.main_actors %>" required>
+            </label>
+            <label>director:
+                <input type="text" name="director" id="director" value="<%= locals.director %>" required> 
+            </label>
+            </br>
+            <br>
+            <button>POST</button>
+        </form>
+        </div>
+    </body>
+    <%- include('./partials/footer.ejs') %>
+</html>
