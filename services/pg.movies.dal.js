@@ -21,7 +21,7 @@ var getMovieByMovieId = function (id) {
   if (DEBUG) console.log("movies.pg.dal.getMovieByMovieId()");
   return new Promise(function (resolve, reject) {
     const sql =
-      "SELECT movie_id AS _id, title, description, release_year, rating, genre, main_actors, director FROM Movies WHERE movie_id = $1";
+      "SELECT movie_id AS _id, title, description, release_year, rating, genre, main_actors, director FROM Movies WHERE movie_id = $1;";
     dal.query(sql, [id], (err, result) => {
       if (err) {
         if (DEBUG) console.log(err);
@@ -61,82 +61,36 @@ var addMovie = function (
     );
   });
 };
-var putMovie = function (
-  movie_id,
-  title,
-  description,
-  release_year,
-  rating,
-  genre,
-  main_actors,
-  director
-) {
+var putMovie = function (id, title) {
   if (DEBUG) console.log("movies.pg.dal.putMovie()");
   return new Promise(function (resolve, reject) {
-    const sql =
-      "UPDATE Movies SET title=$2, description=$3, release_year=$4, rating=$5, genre=$6, main_actors=$7, director=$8 WHERE actor_id=$1;";
-    dal.query(
-      sql,
-      [
-        movie_id,
-        title,
-        description,
-        release_year,
-        rating,
-        genre,
-        main_actors,
-        director,
-      ],
-      (err, result) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result.rows);
-        }
+    const sql = "UPDATE Movies SET title=$2 WHERE movie_id=$1;";
+    dal.query(sql, [movie_id, title], (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result.rows);
       }
-    );
+    });
   });
 };
-var patchMovie = function (
-  movie_id,
-  title,
-  description,
-  release_year,
-  rating,
-  genre,
-  main_actors,
-  director
-) {
-  if (DEBUG) console.log("actors.pg.dal.patchActor()");
+var patchMovie = function (movie_id, title) {
+  if (DEBUG) console.log("movies.pg.dal.patchMovie()");
   return new Promise(function (resolve, reject) {
-    const sql =
-      "UPDATE Movies SET title=$2, description=$3, release_year=$4, rating=$5, genre=$6, main_actors=$7, director=$8 WHERE actor_id=$1;";
-    dal.query(
-      sql,
-      [
-        movie_id,
-        title,
-        description,
-        release_year,
-        rating,
-        genre,
-        main_actors,
-        director,
-      ],
-      (err, result) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result.rows);
-        }
+    const sql = "UPDATE Movies SET title=$2  WHERE movie_id=$1;";
+    dal.query(sql, [movie_id, title], (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result.rows);
       }
-    );
+    });
   });
 };
-var deleteMovie = function (movie_id) {
+var deleteMovie = function (id) {
   if (DEBUG) console.log("movies.pg.dal.deleteMovie()");
   return new Promise(function (resolve, reject) {
-    const sql = "DELETE FROM Movies WHERE actor_id = $1;";
+    const sql = "DELETE FROM Movies WHERE movie_id = $1;";
     dal.query(sql, [id], (err, result) => {
       if (err) {
         reject(err);
