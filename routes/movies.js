@@ -59,7 +59,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.get("/:id/replace", async (req, res) => {
-  if (DEBUG) console.log("movie.Replace : " + req.params.id);
+  if (DEBUG) console.log("movie.Replace(): " + req.params.id);
   res.render("moviePut.ejs", {
     title: req.query.title,
     description: req.query.description,
@@ -72,7 +72,7 @@ router.get("/:id/replace", async (req, res) => {
 });
 
 router.get("/:id/edit", async (req, res) => {
-  if (DEBUG) console.log("movie.Edit : " + req.params.id);
+  if (DEBUG) console.log("movie.Edit(): " + req.params.id);
   res.render("moviePatch.ejs", {
     title: req.query.title,
     description: req.query.description,
@@ -85,8 +85,9 @@ router.get("/:id/edit", async (req, res) => {
 });
 
 router.get("/:id/delete", async (req, res) => {
-  if (DEBUG) console.log("movie.Delete : " + req.params.id);
+  if (DEBUG) console.log("movie.Delete(): " + req.params.id);
   res.render("movieDelete.ejs", {
+    movie_id: req.query.movie_id,
     title: req.query.title,
     description: req.query.description,
     release_year: req.params.release_year,
@@ -98,7 +99,7 @@ router.get("/:id/delete", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  if (DEBUG) console.log("movie.POST");
+  if (DEBUG) console.log("movie.POST()");
   try {
     await moviesDal.addMovie(
       req.body.title,
@@ -117,7 +118,7 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  if (DEBUG) console.log("movie.PUT: " + req.params.id);
+  if (DEBUG) console.log("movie.PUT(): " + req.params.id);
   try {
     await moviesDal.putMovie(
       req.body.title,
@@ -135,7 +136,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 router.patch("/:id", async (req, res) => {
-  if (DEBUG) console.log("movie.PATCH: " + req.params.id);
+  if (DEBUG) console.log("movie.PATCH(): " + req.params.id);
   try {
     await moviesDal.patchMovie(
       req.body.title,
@@ -153,9 +154,9 @@ router.patch("/:id", async (req, res) => {
   }
 });
 router.delete("/:id", async (req, res) => {
-  if (DEBUG) console.log("movie.DELETE: " + req.params.id);
+  if (DEBUG) console.log("movie.DELETE(): " + req.params.id);
   try {
-    await moviesDal.deleteMovie(req.params.id);
+    await moviesDal.deleteMovie(req.params.movie_id);
     res.redirect("/movies/");
   } catch {
     // log this error to an error log file.
