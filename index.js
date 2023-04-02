@@ -19,6 +19,9 @@ app.get("/about", (request, response) => {
 const moviesRouter = require("./routes/movies");
 app.use("/movies", moviesRouter);
 
+const apiRouter = require("./routes/api");
+app.use("/api", apiRouter);
+
 app.use((req, res) => {
   res.status(404).render("404");
 });

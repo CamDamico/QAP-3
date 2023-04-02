@@ -17,12 +17,12 @@ var getMovies = function () {
   });
 };
 
-var getMovieByMovieId = function (id) {
+var getMovieByMovieId = function (movie_id) {
   if (DEBUG) console.log("movies.pg.dal.getMovieByMovieId()");
   return new Promise(function (resolve, reject) {
     const sql =
       "SELECT movie_id AS _id, title, description, release_year, rating, genre, main_actors, director FROM Movies WHERE movie_id = $1;";
-    dal.query(sql, [id], (err, result) => {
+    dal.query(sql, [movie_id], (err, result) => {
       if (err) {
         if (DEBUG) console.log(err);
         reject(err);

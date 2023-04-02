@@ -5,7 +5,7 @@
         <div class="create content">
             <form action="/movies/<%= locals.movie_id %>?_method=DELETE" method="POST">
                 <label>Are you sure you want to delete this Movie?</br>
-                    <input type="text" id="<%= locals.movie_id %>" name="movie" value=" <%= locals.movie_id%>" readonly>
+                    <input type="text" id="<%= locals.movie_id %>" name="movie" value=" <%= locals.title%><%= locals.movie_id%>" readonly>
                 </label>
                 <button>DELETE</button>
             </form>

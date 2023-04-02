@@ -1,5 +1,5 @@
 var router = require("express").Router();
-const actorsDal = require("../../services/pg.movies.dal");
+const moviesDal = require("../../services/pg.movies.dal");
 
 // api/movies
 router.get("/", async (req, res) => {

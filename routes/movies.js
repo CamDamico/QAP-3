@@ -59,7 +59,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.get("/:id/replace", async (req, res) => {
-  if (DEBUG) console.log("movie.Replace(): " + req.params.id);
+  if (DEBUG) console.log("movies.Replace(): " + req.params.id);
   res.render("moviePut.ejs", {
     title: req.query.title,
     description: req.query.description,
@@ -72,7 +72,7 @@ router.get("/:id/replace", async (req, res) => {
 });
 
 router.get("/:id/edit", async (req, res) => {
-  if (DEBUG) console.log("movie.Edit(): " + req.params.id);
+  if (DEBUG) console.log("movies.Edit(): " + req.params.id);
   res.render("moviePatch.ejs", {
     title: req.query.title,
     description: req.query.description,
@@ -85,7 +85,7 @@ router.get("/:id/edit", async (req, res) => {
 });
 
 router.get("/:id/delete", async (req, res) => {
-  if (DEBUG) console.log("movie.Delete(): " + req.params.id);
+  if (DEBUG) console.log("movies.Delete(): " + req.params.id);
   res.render("movieDelete.ejs", {
     movie_id: req.query.movie_id,
     title: req.query.title,
@@ -99,7 +99,7 @@ router.get("/:id/delete", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  if (DEBUG) console.log("movie.POST()");
+  if (DEBUG) console.log("movies.POST()");
   try {
     await moviesDal.addMovie(
       req.body.title,
@@ -110,7 +110,7 @@ router.post("/", async (req, res) => {
       req.body.main_actors,
       req.body.director
     );
-    res.redirect("/movies/");
+    res.redirect("/movies");
   } catch {
     // log this error to an error log file.
     res.render("503");
@@ -118,7 +118,7 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  if (DEBUG) console.log("movie.PUT(): " + req.params.id);
+  if (DEBUG) console.log("movies.PUT(): " + req.params.id);
   try {
     await moviesDal.putMovie(
       req.body.title,
@@ -129,14 +129,14 @@ router.put("/:id", async (req, res) => {
       req.body.main_actors,
       req.body.director
     );
-    res.redirect("/movies/");
+    res.redirect("/movies");
   } catch {
     // log this error to an error log file.
     res.render("503");
   }
 });
 router.patch("/:id", async (req, res) => {
-  if (DEBUG) console.log("movie.PATCH(): " + req.params.id);
+  if (DEBUG) console.log("movies.PATCH(): " + req.params.id);
   try {
     await moviesDal.patchMovie(
       req.body.title,
@@ -147,17 +147,17 @@ router.patch("/:id", async (req, res) => {
       req.body.main_actors,
       req.body.director
     );
-    res.redirect("/movies/");
+    res.redirect("/movies");
   } catch {
     // log this error to an error log file.
     res.render("503");
   }
 });
 router.delete("/:id", async (req, res) => {
-  if (DEBUG) console.log("movie.DELETE(): " + req.params.id);
+  if (DEBUG) console.log("movies.DELETE(): " + req.params.id);
   try {
-    await moviesDal.deleteMovie(req.params.movie_id);
-    res.redirect("/movies/");
+    await moviesDal.deleteMovie(req.params.id);
+    res.redirect("/movies");
   } catch {
     // log this error to an error log file.
     res.render("503");
