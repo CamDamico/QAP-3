@@ -2,18 +2,19 @@
     <%- include('./partials/header.ejs') %>
     <body>
         <%- include('./partials/nav.ejs') %>
-        <div class="movies content">
+        <br>
+        <div class="moviescontent">
             <form action="/movies" method="POST">
-                <br><b>Movies: </b></br> <br>
+                <br><b class="title">All Movies: </b></br> <br>
             <% if (theMovies.length > 0) { %>
                 <% theMovies.forEach(movie => { %>
-                    <b><%= movie.title %> <%= movie.release_year %></b><br> <%= movie.main_actors %><br> <%= movie.description %> <br> 
+                    <b id="movieTitle"><%= movie.title %> <%= movie.release_year %></b><br> <b><%= movie.main_actors %></b><br><br> <%= movie.description %> <br><br> 
                     <a href="/movies/<%=movie._id%>/edit?title=<%=movie.title%>&description=<%=movie.description%>&release_year=<%=movie.release_year%>&rating=<%=movie.rating%>&genre=<%=movie.rating%>&main_actors=<%=movie.main_actors%>&director=<%=movie.director%>">edit</a>
                     <a href="/movies/<%=movie._id%>/delete?title=<%=movie.title%>&description=<%=movie.description%>&release_year=<%=movie.release_year%>&rating=<%=movie.rating%>&genre=<%=movie.rating%>&main_actors=<%=movie.main_actors%>&director=<%=movie.director%>">delete</a>
                     <a href="/movies/<%=movie._id%>/replace?title=<%=movie.title%>&description=<%=movie.description%>&release_year=<%=movie.release_year%>&rating=<%=movie.rating%>&genre=<%=movie.rating%>&main_actors=<%=movie.main_actors%>&director=<%=movie.director%>">replace</a></br> <br>
                     <% }) %>
             <% } %>
-            </br><label id="addMovie">Add Movie:</label></br>
+            </br><label id="addMovie">Add Movie:</label></br><br>
             <label>Title:
                 <input type="text" id="title" name="title" value="<%= locals.title %>" required>
             </label>
@@ -38,7 +39,7 @@
             </label>
             </br>
             <br>
-            <button>POST</button>
+            <button class="button">POST</button>
         </form>
         </div>
     </body>
