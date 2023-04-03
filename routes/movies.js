@@ -52,7 +52,7 @@ router.get("/:id", async (req, res) => {
   try {
     let aMovie = await moviesDal.getMovieByMovieId(req.params.id);
     if (aMovie.length === 0) res.render("norecord");
-    else res.render("movies", { aMovie });
+    else res.render("movie", { aMovie });
   } catch {
     res.render("503");
   }

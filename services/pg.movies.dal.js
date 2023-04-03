@@ -5,7 +5,7 @@ var getMovies = function () {
   if (DEBUG) console.log("movies.pg.dal.getMovies()");
   return new Promise(function (resolve, reject) {
     const sql =
-      "SELECT movie_id AS _id, title, description, release_year, rating, genre, main_actors, director FROM Movies ORDER BY movie_id;";
+      "SELECT movie_id AS _id, title, description, release_year, rating, genre, main_actors, director FROM public.Movies ORDER BY movie_id;";
     dal.query(sql, [], (err, result) => {
       if (err) {
         if (DEBUG) console.log(err);
@@ -21,7 +21,7 @@ var getMovieByMovieId = function (movie_id) {
   if (DEBUG) console.log("movies.pg.dal.getMovieByMovieId()");
   return new Promise(function (resolve, reject) {
     const sql =
-      "SELECT movie_id AS _id, title, description, release_year, rating, genre, main_actors, director FROM Movies WHERE movie_id = $1;";
+      "SELECT movie_id AS _id, title, description, release_year, rating, genre, main_actors, director FROM public.Movies WHERE movie_id = $1;";
     dal.query(sql, [movie_id], (err, result) => {
       if (err) {
         if (DEBUG) console.log(err);
@@ -45,7 +45,7 @@ var addMovie = function (
   if (DEBUG) console.log("movies.pg.dal.addMovie()");
   return new Promise(function (resolve, reject) {
     const sql =
-      "INSERT INTO Movies(title, description, release_year, rating, genre, main_actors, director) \
+      "INSERT INTO public.Movies (title, description, release_year, rating, genre, main_actors, director) \
         VALUES ($1, $2, $3, $4, $5, $6, $7);";
     dal.query(
       sql,
@@ -64,8 +64,8 @@ var addMovie = function (
 var putMovie = function (id, title) {
   if (DEBUG) console.log("movies.pg.dal.putMovie()");
   return new Promise(function (resolve, reject) {
-    const sql = "UPDATE Movies SET title=$2 WHERE movie_id=$1;";
-    dal.query(sql, [movie_id, title], (err, result) => {
+    const sql = "UPDATE public.Movies SET title=$2 WHERE movie_id=$1;";
+    dal.query(sql, [id, title], (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -74,11 +74,11 @@ var putMovie = function (id, title) {
     });
   });
 };
-var patchMovie = function (movie_id, title) {
+var patchMovie = function (id, title) {
   if (DEBUG) console.log("movies.pg.dal.patchMovie()");
   return new Promise(function (resolve, reject) {
-    const sql = "UPDATE Movies SET title=$2  WHERE movie_id=$1;";
-    dal.query(sql, [movie_id, title], (err, result) => {
+    const sql = "UPDATE public.Movies SET title=$2  WHERE movie_id=$1;";
+    dal.query(sql, [id, title], (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -90,7 +90,7 @@ var patchMovie = function (movie_id, title) {
 var deleteMovie = function (id) {
   if (DEBUG) console.log("movies.pg.dal.deleteMovie()");
   return new Promise(function (resolve, reject) {
-    const sql = "DELETE FROM Movies WHERE movie_id = $1;";
+    const sql = "DELETE FROM public.Movies WHERE movie_id = $1;";
     dal.query(sql, [id], (err, result) => {
       if (err) {
         reject(err);
